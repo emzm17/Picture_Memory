@@ -42,20 +42,7 @@
         android:layout_height="wrap_content"
         android:text="Hard" />
 
-    <Button
-        android:backgroundTint="#036C6B"
-        android:layout_gravity="center"
-        android:id="@+id/button4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="LeaderBoard" />
-    <Button
-        android:backgroundTint="#036C6B"
-        android:layout_gravity="center"
-        android:id="@+id/button5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="LogOut" />
+
 
 
 </LinearLayout>

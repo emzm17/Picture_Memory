@@ -8,7 +8,7 @@ import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.picturememory.dao.ScoreDao
+
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.DelicateCoroutinesApi
@@ -19,8 +19,6 @@ class MainActivity : AppCompatActivity() {
    private lateinit var adapter:Myadapter
    private lateinit var list:List<Memory>
    private lateinit var boardSize: BoardSize
-   private lateinit var scoreDao: ScoreDao
-   private var pauseAt:Long=0
    private lateinit var b:BoardSize
     private var prev: String? =null
     companion object{
@@ -33,6 +31,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
+        getSupportActionBar()?.setDisplayHomeAsUpEnabled(true);
         var i=intent.getStringExtra("level")
 
         when(i){
@@ -123,7 +122,7 @@ class MainActivity : AppCompatActivity() {
         rcview.adapter=adapter
         rcview.setHasFixedSize(true)
         rcview.layoutManager=GridLayoutManager(this,boardSize.width())
-        scoreDao= ScoreDao()
+
     }
 
 
@@ -133,7 +132,6 @@ class MainActivity : AppCompatActivity() {
               if(memoryGame.isWon()){
                   timetaken.stop()
                   val st=SystemClock.elapsedRealtime()-timetaken.base
-                  scoreDao.addscore(st,prev!!)
                 Snackbar.make(Clayout,"YOU WON",Snackbar.LENGTH_LONG).show()
                   return
               }
@@ -146,7 +144,6 @@ class MainActivity : AppCompatActivity() {
                 if(memoryGame.isWon()){
                     timetaken.stop()
                     val st=SystemClock.elapsedRealtime()-timetaken.base
-                    scoreDao.addscore(st,prev!!)
                     Snackbar.make(Clayout,"YOU WON",Snackbar.LENGTH_LONG).show()
                 }
             }

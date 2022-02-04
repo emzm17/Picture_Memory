@@ -35,19 +35,12 @@ class MemoryGame(private val boardSize: BoardSize) {
 
     private fun checkForMatch(p1: Int, p2: Int): Boolean {
         if(cards[p1].id!=cards[p2].id) {
-
-
-
             return false
         }
         else{
              cards[p1].matched=true
             cards[p2].matched=true
             pairs+=1
-
-
-
-
           return true
 
         }
@@ -69,12 +62,7 @@ class MemoryGame(private val boardSize: BoardSize) {
             return cards[position].up
     }
 
-    fun getTotalMoves(): Int {
-            return  numberFlips/2
-    }
-    fun getTotal():Int{
-         return totalmoves
-    }
+
 
 
 }

@@ -6,18 +6,20 @@ class ConstantImage {
 
 
         val icon = listOf(
-            R.drawable.ic_face,
-            R.drawable.ic_flower,
-            R.drawable.ic_gift,
-            R.drawable.ic_heart,
-            R.drawable.ic_home,
-            R.drawable.ic_lightning,
-            R.drawable.ic_moon,
-            R.drawable.ic_plane,
-            R.drawable.ic_school,
-            R.drawable.ic_send,
-            R.drawable.ic_star,
-            R.drawable.ic_work
+            R.drawable.apple,
+            R.drawable.bananas,
+            R.drawable.zebra,
+            R.drawable.elephant,
+            R.drawable.lion,
+            R.drawable.rose,
+            R.drawable.peacock,
+            R.drawable.rat,
+            R.drawable.egg,
+            R.drawable.hen,
+            R.drawable.orange,
+            R.drawable.watermelon,
+            R.drawable.cat,
+            R.drawable.australian
         )
     }
 }

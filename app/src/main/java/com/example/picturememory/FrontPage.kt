@@ -34,16 +34,7 @@ class FrontPage : AppCompatActivity() {
             intent.putExtra("level","hard")
             startActivity(intent)
         }
-        button4.setOnClickListener {
-            startActivity(Intent(this,LeaderActivity::class.java))
 
-        }
-        button5.setOnClickListener {
-             val auth=FirebaseAuth.getInstance()
-             auth.signOut()
-             startActivity(Intent(this,LoginActivity::class.java))
-             finish()
-        }
 
     }
 
