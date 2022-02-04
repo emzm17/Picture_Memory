@@ -1,7 +1,6 @@
 package com.example.picturememory
 
 import android.annotation.SuppressLint
-import android.app.Dialog
 import android.os.*
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
@@ -9,9 +8,10 @@ import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.GridLayoutManager
+
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.dialog.*
+import kotlinx.coroutines.DelicateCoroutinesApi
 
 class MainActivity : AppCompatActivity() {
 
@@ -19,13 +19,19 @@ class MainActivity : AppCompatActivity() {
    private lateinit var adapter:Myadapter
    private lateinit var list:List<Memory>
    private lateinit var boardSize: BoardSize
-
    private lateinit var b:BoardSize
     private var prev: String? =null
+    companion object{
+        const val TAG="MAINACTIVITY"
+    }
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
+        getSupportActionBar()?.setDisplayHomeAsUpEnabled(true);
         var i=intent.getStringExtra("level")
 
         when(i){
@@ -40,6 +46,7 @@ class MainActivity : AppCompatActivity() {
             "hard"->{
                 prev="hard"
             }
+
         }
         setUpGame()
     }
@@ -56,6 +63,7 @@ class MainActivity : AppCompatActivity() {
                R.id.restart->{
                    if(!memoryGame.isWon()){
                        AlertDialogShow("Quit your current game?",null,View.OnClickListener {
+
                            setUpGame()
                        })
                    }
@@ -88,7 +96,7 @@ class MainActivity : AppCompatActivity() {
 
                 b=BoardSize.Easy
             }
-            "meduim"->{
+            "medium"->{
 
                 b=BoardSize.Meduim
             }
@@ -99,11 +107,12 @@ class MainActivity : AppCompatActivity() {
 
         }
         pairs.text="Pairs:0"
-        moves.text="Moves:0"
+        timetaken.text="Time:00:00"
         memoryGame=MemoryGame(b)
         boardSize=b
         list=memoryGame.cards
-
+        timetaken.base=SystemClock.elapsedRealtime()
+        timetaken.start()
         adapter=Myadapter(this,boardSize ,memoryGame.cards,object:Myadapter.CardClickListener{
             override fun cardClicked(position: Int) {
                 Flip(position)
@@ -113,16 +122,17 @@ class MainActivity : AppCompatActivity() {
         rcview.adapter=adapter
         rcview.setHasFixedSize(true)
         rcview.layoutManager=GridLayoutManager(this,boardSize.width())
+
     }
+
+
+    @DelicateCoroutinesApi
     @SuppressLint("SetTextI18n", "NotifyDataSetChanged")
     private fun Flip(position:Int){
               if(memoryGame.isWon()){
-
-                val dialog=Dialog(this)
-                  dialog.setCancelable(false)
-                  dialog.setContentView(R.layout.dialog)
-                  dialog.show()
-
+                  timetaken.stop()
+                  val st=SystemClock.elapsedRealtime()-timetaken.base
+                Snackbar.make(Clayout,"YOU WON",Snackbar.LENGTH_LONG).show()
                   return
               }
         if(memoryGame.isUp(position)){
@@ -132,13 +142,11 @@ class MainActivity : AppCompatActivity() {
             if( memoryGame.flipCard(position)){
              pairs.text="Pairs:${memoryGame.pairs}/${boardSize.NumPairs()}"
                 if(memoryGame.isWon()){
-                    val dialog=Dialog(this)
-                    dialog.setCancelable(false)
-                    dialog.setContentView(R.layout.dialog)
-                    dialog.show()
+                    timetaken.stop()
+                    val st=SystemClock.elapsedRealtime()-timetaken.base
+                    Snackbar.make(Clayout,"YOU WON",Snackbar.LENGTH_LONG).show()
                 }
             }
-           moves.text="Moves:${memoryGame.getTotalMoves()}"
               adapter.notifyDataSetChanged()
     }
 
