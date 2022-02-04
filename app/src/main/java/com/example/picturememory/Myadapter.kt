@@ -57,9 +57,7 @@ inner class MyViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         btn.alpha = if(image[i].matched) .4f else 1.0f
         val colorState= if(image[i].matched ) ContextCompat.getColorStateList(context,R.color.teal_700) else null
         ViewCompat.setBackgroundTintList(btn,colorState)
-
         btn.setOnClickListener {
-            Log.d("TAG", "Clicked button $i")
               cardClickListener.cardClicked(i)
                 mediaPlayer.start()
 

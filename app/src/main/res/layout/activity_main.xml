@@ -41,13 +41,13 @@
                 android:layout_weight="1"
                 app:cardCornerRadius="8dp">
 
-                <TextView
-                    android:id="@+id/moves"
+                <Chronometer
+                    android:id="@+id/timetaken"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:padding="8dp"
-                    android:text="Moves:0 "
+                    android:text="Time:0"
                     android:textAppearance="@style/TextAppearance.AppCompat.Large" />
             </androidx.cardview.widget.CardView>
 
