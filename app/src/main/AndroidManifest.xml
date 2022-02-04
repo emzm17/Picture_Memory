@@ -13,9 +13,11 @@
         android:theme="@style/Theme.PictureMemory">
         <activity
             android:name=".MainActivity"
+            android:parentActivityName=".FrontPage"
             android:exported="false" />
         <activity
             android:name=".FrontPage"
+
             android:exported="true" >
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
